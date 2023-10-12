@@ -1,37 +1,57 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColumn, } from 'typeorm';
+import { ServiceEntity } from './service.entity';
+import { VehicleEntity } from './vehicle.entity';
 
-@Entity({ name: 'Users', schema: 'Billing.dbo' })
-export class UserEntity {
-  @PrimaryGeneratedColumn()
+@Entity({ name: 'USERS', schema: 'dbexcalibur.dbo' })
+export class UserEntity extends BaseEntity{
+
+  @PrimaryColumn({
+    name: 'ID'
+  })
   id: number;
 
-  @Column({ length: 200, collation: 'Modern_Spanish_CI_AS' })
+  @Column({ name : 'EMAIL', type: 'varchar' })
   email: string;
 
-  @Column({ length: 300, collation: 'Modern_Spanish_CI_AS' })
+  @Column({ name : 'EMAIL', type: 'varchar' })
   password: string;
 
-  @Column({ length: 300, collation: 'Modern_Spanish_CI_AS' })
-  firstName: string;
+  @Column({ name : 'NAME', type: 'varchar' })
+  name: string;
 
-  @Column({ length: 300, collation: 'Modern_Spanish_CI_AS' })
-  lastName: string;
+  @Column({ name : 'SURNAME', type: 'varchar' })
+  surName: string;
 
-  @Column({ type: 'bigint', nullable: true })
+  @Column({ name : 'PHONE', type: 'varchar' })
   phone: number;
 
-  @Column({ type: 'int', nullable: true })
-  configurationId: number;
+  @Column({ name : 'ROLE', type: 'varchar' })
+  role: string;
 
-  @Column({ type: 'bigint' })
-  status: number;
+  @OneToMany(type => ServiceEntity, service => service.worker)
+  worker : ServiceEntity;
 
-  @Column({ type: 'datetime' })
-  createDate: Date;
+  @ManyToOne(type => VehicleEntity, service => service.owner)
+  ownerVehicle : ServiceEntity;
 
-  @Column({ type: 'datetime', nullable: true })
-  updateDate: Date;
+  static getUsersByPhone(phone : string ){
+    return this.createQueryBuilder('users')
+        .where('users.phone = :phone', {phone})
+        .getMany();
+}
 
-  @Column({ type: 'datetime', nullable: true })
-  deleteDate: Date;
+static getUsersByRole(role: string, page: number, perPage: number) {
+  const skip = (page - 1) * perPage; // Calcular cuántos registros omitir
+  console.log(">>>>> hjol");
+  
+  return this.createQueryBuilder('users')
+    .leftJoinAndSelect('users.ownerVehicle', 'vehicle')
+    .where('users.role = :role', { role })
+    .skip(skip)
+    .take(perPage)
+    .getMany();
+}
+
+
+
 }

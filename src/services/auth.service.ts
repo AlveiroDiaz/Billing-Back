@@ -1,7 +1,9 @@
+
 import { JWT } from "../utils/jwt.util";
 import { Login, RefreshToken } from "utils/models/commons/auth.common";
 
-export  class AuthService {
+
+export class AuthService {
     static SigIn(user: Login): string{
         const token = JWT.create(user);
         return token;
@@ -19,4 +21,5 @@ export  class AuthService {
     static DecodeToken(token: string): any{
         return JWT.decodeToken(token);
     }
+
 }

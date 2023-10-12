@@ -1,5 +1,5 @@
+import { Request, Response, Router } from "express";
 import { Login, RefreshToken } from "utils/models/commons/auth.common";
-import { Router, Response, Request } from "express";
 import { AuthService } from "../services/auth.service";
 const debug = require("debug")("backend:routes:auth");
 

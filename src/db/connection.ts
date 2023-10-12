@@ -1,33 +1,39 @@
-import { DataSource } from "typeorm";
-import { CustomerEntity } from "./entities/customers.entity";
+import { createConnection, Connection } from "typeorm";
 import { UserEntity } from "./entities/user.entity";
+import { CatBrandVehicleEntity } from "./entities/cat-brand-vehicle.entity";
+import { CatModelVehicleEntity } from "./entities/cat-model-vehicle.entity";
+import { CatServicesEntity } from "./entities/cat-services.entity";
+import { ServiceEntity } from "./entities/service.entity";
+import { VehicleEntity } from "./entities/vehicle.entity";
 
-const AppDataSource = new DataSource({
-  type: "mssql",
-  host: "localhost",
-  port: 1433,
-  username: "juanchito",
-  password: "123",
-  database: "Billing",
-  entities: [CustomerEntity, UserEntity],
-  options: {
-    encrypt: true,
-    trustServerCertificate: true,
-  },
-  synchronize: false,
-});
+let AppConnection: Connection;
 
 export async function getConnectionSql() {
-  if (!AppDataSource.isInitialized) {
-    await AppDataSource.initialize()
-      .then(() => {
-        console.log("Se conecto!");
-        return AppDataSource;
-      })
-      .catch((err) => {
-        console.log(err);
+  if (!AppConnection) {
+    try {
+      AppConnection = await createConnection({
+        type: "mysql",
+        host: "161.97.132.44",
+        port: 3306,
+        username: "alveiro",
+        password: "1205",
+        database: "dbexcalibur",
+        entities: [
+                  UserEntity,
+                  CatBrandVehicleEntity,
+                  CatModelVehicleEntity,
+                  CatServicesEntity,
+                  ServiceEntity,
+                  VehicleEntity],
+        synchronize: false,
       });
-  } else {
-    return AppDataSource;
+
+      console.log("Conexión a MySQL establecida correctamente");
+    } catch (error) {
+      console.error("Error al conectar a MySQL:", error);
+      throw error;
+    }
   }
+  return AppConnection;
 }
+
