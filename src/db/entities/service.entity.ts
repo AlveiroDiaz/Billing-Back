@@ -33,6 +33,6 @@ export class ServiceEntity extends BaseEntity{
     return this.createQueryBuilder('users').
         where('users.phone = :phone', {phone})
         .getMany();
-}
+  }
 
 }
