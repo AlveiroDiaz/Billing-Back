@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryColumn, } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, } from 'typeorm';
 import { CatServicesEntity } from './cat-services.entity';
 import { UserEntity } from './user.entity';
 import { VehicleEntity } from './vehicle.entity';
@@ -12,27 +12,25 @@ export class ServiceEntity extends BaseEntity{
   id: number;
 
   @ManyToOne(type => UserEntity, user => user.worker)
-  @Column({ name : 'WORKER_ID', type: 'bigint' })
+  @JoinColumn({ name: 'WORKER_ID' })
   worker: number;
 
   @ManyToOne(type => CatServicesEntity, catServices => catServices.service)
-  @Column({ name : 'SERVICE', type: 'bigint' })
-  service: string;
+  @JoinColumn({ name: 'SERVICE' })
+  service: number;
 
   @Column({ name : 'CREATION_DATE', type: 'date' })
-  creationDate: string;
+  creationDate: Date;
 
   @Column({ name : 'STATUS', type: 'varchar' })
   status: string;
 
   @ManyToOne(type => VehicleEntity, vehicle => vehicle.service)
-  @Column({ name : 'VEHICLE', type: 'bigint' })
+  @JoinColumn({ name : 'VEHICLE' })
   vehicle: number;
 
-  static getUsersByPhone(phone : string ){
-    return this.createQueryBuilder('users').
-        where('users.phone = :phone', {phone})
-        .getMany();
-  }
+    
+
+  
 
 }

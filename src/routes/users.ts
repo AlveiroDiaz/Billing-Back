@@ -17,9 +17,8 @@ router.get('/phone/:phone', async (req, res) => {
 
 router.get('/roles', async (req, res) => {
   try{
-    const { role, page } = req.query;
-    const itemsPerPage = 11;
-    const result = await UsersService.getUsersByRole(""+role, +page, itemsPerPage)
+    const { role } = req.query;
+    const result = await UsersService.getUsersByRole(""+role);
     res.send(result);
   }catch (error) {
     res.send(error.message);

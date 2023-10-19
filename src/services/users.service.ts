@@ -11,11 +11,11 @@ export class UsersService {
         return result
     }
 
-    static async getUsersByRole(role : string, page: number, perPage: number){
+    static async getUsersByRole(role : string){
         console.log("Starting method getUsersByRole")
         await getConnectionSql();
         try {
-            const result = await UserEntity.getUsersByRole(role,page,perPage);   
+            const result = await UserEntity.getUsersByRole(role);   
             console.log("Ending method getUsersByRole")
             return result
         } catch (error) {

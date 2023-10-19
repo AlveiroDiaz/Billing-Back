@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColumn, } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn, } from 'typeorm';
 import { ServiceEntity } from './service.entity';
 import { VehicleEntity } from './vehicle.entity';
 
@@ -31,7 +31,7 @@ export class UserEntity extends BaseEntity{
   @OneToMany(type => ServiceEntity, service => service.worker)
   worker : ServiceEntity;
 
-  @ManyToOne(type => VehicleEntity, service => service.owner)
+  @ManyToMany(type => VehicleEntity, service => service.owner)
   ownerVehicle : ServiceEntity;
 
   static getUsersByPhone(phone : string ){
@@ -40,15 +40,9 @@ export class UserEntity extends BaseEntity{
         .getMany();
 }
 
-static getUsersByRole(role: string, page: number, perPage: number) {
-  const skip = (page - 1) * perPage; // Calcular cuántos registros omitir
-  console.log(">>>>> hjol");
-  
+static getUsersByRole(role: string) {
   return this.createQueryBuilder('users')
-    .leftJoinAndSelect('users.ownerVehicle', 'vehicle')
     .where('users.role = :role', { role })
-    .skip(skip)
-    .take(perPage)
     .getMany();
 }
 

@@ -1,7 +1,7 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn, } from 'typeorm';
 import { ServiceEntity } from './service.entity';
 
-@Entity({ name: 'CAT_BRAND_VEHICLE', schema: 'dbexcalibur.dbo' })
+@Entity({ name: 'CAT_SERVICES', schema: 'dbexcalibur.dbo' })
 export class CatServicesEntity extends BaseEntity{
 
   @PrimaryColumn({
@@ -21,5 +21,11 @@ export class CatServicesEntity extends BaseEntity{
   @OneToMany(type => ServiceEntity, service => service.service)
   service : ServiceEntity;
 
+  static getCatServices(){
+    return this.createQueryBuilder('catService')
+        .getMany();
+  }
+
+  
 
 }

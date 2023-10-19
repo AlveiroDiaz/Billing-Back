@@ -29,9 +29,10 @@ export class VehicleEntity extends BaseEntity{
   @OneToMany(type => ServiceEntity, service => service.vehicle)
   service : ServiceEntity;
 
-  static getUsersByPhone(phone : string ){
-    return this.createQueryBuilder('users').
-        where('users.phone = :phone', {phone})
+  static getVehicleByPlaca(placa : string ){
+    
+    return this.createQueryBuilder('vehicle')
+        .where('vehicle.placa = :placa', {placa})
         .getMany();
   }
 
