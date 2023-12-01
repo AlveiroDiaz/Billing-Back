@@ -18,9 +18,32 @@ export class VehiclesService {
             console.log(">>>>>>", error);
             
         }
+    }
+
+    static async createVehicle(placa : string, marca : string, modelo : string, color : string, ownerId : number){
+        console.log("Starting method createVehicle")
+        await getConnectionSql();
+        try {
+
+            const vehicle : VehicleEntity = new VehicleEntity();
+            vehicle.placa = placa;
+            vehicle.color = color;
+            vehicle.brand = marca;
+            vehicle.model = modelo;
+            vehicle.owner = ownerId;
+
+            const result = await  VehicleEntity.save(vehicle);   
+            console.log("Ending method createVehicle")
+            return result
+        } catch (error) {
+            console.log(">>>>>>", error);
+            
+        }
         
         
     }
+
+    
 
 
 }

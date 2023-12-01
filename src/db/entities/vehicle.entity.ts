@@ -13,9 +13,9 @@ export class VehicleEntity extends BaseEntity{
   @Column({ name : 'PLACA', type: 'varchar' })
   placa: string;
 
-  @OneToMany(type => UserEntity, vehicle => vehicle.ownerVehicle)
+  
   @Column({ name : 'OWNER_ID', type: 'bigint' })
-  owner: UserEntity;
+  owner: number;
 
   @Column({ name : 'BRAND', type: 'varchar' })
   brand: string;
@@ -24,7 +24,7 @@ export class VehicleEntity extends BaseEntity{
   color: string;
 
   @Column({ name : 'MODELO', type: 'varchar' })
-  model: number;
+  model: string;
 
   @OneToMany(type => ServiceEntity, service => service.vehicle)
   service : ServiceEntity;

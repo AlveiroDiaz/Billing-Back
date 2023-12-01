@@ -23,8 +23,32 @@ router.get('/roles', async (req, res) => {
   }catch (error) {
     res.send(error.message);
   }
-
 });
+
+router.get('/roles/hint', async (req, res) => {
+  try{
+    const { role, page } = req.query;
+    const itemsPerPage = 11;
+    const offset = (+page - 1) * itemsPerPage;
+    const result = await UsersService.getUsersByRoleHint(""+role,+itemsPerPage,offset);
+    console.log(">>>>>>>",result);
+    
+    res.send(result);
+  }catch (error) {
+    res.send(error.message);
+  }
+});
+
+router.post('/', async (req, res) => {
+  try{
+    const { name, surname, phone, role, email } = req.body;
+    const result = await UsersService.createUser(name,surname,phone,role, email);
+    res.send(result);
+  }catch (error) {
+    res.send(error.message);
+  }
+});
+
 
 
 router.post('/test', autenticationMiddleware(), async (req, res) => {

@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn,getManager } from 'typeorm';
 import { CatServicesEntity } from './cat-services.entity';
 import { UserEntity } from './user.entity';
 import { VehicleEntity } from './vehicle.entity';
@@ -29,7 +29,11 @@ export class ServiceEntity extends BaseEntity{
   @JoinColumn({ name : 'VEHICLE' })
   vehicle: number;
 
-    
+  static getServiceById(serviceId : number ){
+    return this.createQueryBuilder('service')
+        .where('service.id = :serviceId', {serviceId})
+        .getOne();
+  }
 
   
 

@@ -2,6 +2,28 @@ import { getConnectionSql } from "../db/connection"
 import { UserEntity } from "../db/entities/user.entity";
 
 export class UsersService {
+
+    static async createUser( name : string, surName : string,phone: number, role: string, email ?: string){
+        console.log("Starting method createUser")
+        await getConnectionSql();
+        try {
+            
+            const user : UserEntity = new UserEntity();
+            user.name  = name;
+            user.surName = surName;
+            user.phone = phone;
+            user.role = role;
+            user.email = email;
+
+            const result = await UserEntity.save(user);
+            console.log("Ending method createUser")
+            return result;
+        } catch (error) {
+            console.log(">>>>>>", error);
+            
+        }
+        
+    }
     
     static async getUsersByPhone(phone : string){
         console.log("Starting method getUsersByPhone")
@@ -23,8 +45,24 @@ export class UsersService {
             
         }
         
+    }
+
+    static async getUsersByRoleHint(role : string, page : number,pageSize: number){
+        console.log("Starting method getUsersByRoleHint")
+        const connection = await getConnectionSql();
+        try {
+            const result = await connection.query("CALL SpGetUserVehicles(?,?,?)",[role,page,pageSize]);
+            console.log("Ending method getUsersByRoleHint")
+            return result[0];
+        } catch (error) {
+            console.log(">>>>>>", error);
+            
+        }
         
     }
+
+
+    
 
 
 }

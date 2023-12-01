@@ -13,13 +13,12 @@ export async function getConnectionSql() {
     try {
       AppConnection = await createConnection({
         type: "mysql",
-        host: "161.97.132.44",
+        host: "db-lavadero.cam8il4sbzqz.us-east-1.rds.amazonaws.com",
         port: 3306,
-        username: "alveiro",
-        password: "1205",
-        database: "dbexcalibur",
-        entities: [
-                  UserEntity,
+        username: "admin",
+        password: "Ad1010244059*",
+        database: "db_lavadero",
+        entities: [UserEntity,
                   CatBrandVehicleEntity,
                   CatModelVehicleEntity,
                   CatServicesEntity,
@@ -27,7 +26,6 @@ export async function getConnectionSql() {
                   VehicleEntity],
         synchronize: false,
       });
-
       console.log("Conexión a MySQL establecida correctamente");
     } catch (error) {
       console.error("Error al conectar a MySQL:", error);

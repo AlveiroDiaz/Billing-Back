@@ -14,6 +14,16 @@ router.get('/catServices', async (req, res) => {
 
 });
 
+router.get('/service', async (req, res) => {
+  try{
+    const result = await ServicesService.getServices();
+    res.send(result);
+  }catch (error) {
+    res.send(error.message);
+  }
+
+});
+
 router.post('/service', async (req, res) => {
   const { userId, service, status, vehicleId } = req.body;
   try{
@@ -29,6 +39,43 @@ router.post('/service', async (req, res) => {
     res.send(error.message);
   }
   });
+
+
+  router.patch('/status/:serviceid', async (req, res) => {
+    const { serviceid } = req.params;
+    const { status } = req.body;
+    try{
+      const result = await ServicesService.modificateStatusService(+serviceid,status);
+      if(result){
+        res.json({ status: 'Servicio actualizado' });
+      }else{
+        res.status(500).json({ error: 'Error al modificar el estado de un servicio' });
+      }
+      
+    }catch (error) {
+      res.send(error.message);
+    }
+    });
+
+    router.get('/date', async (req, res) => {
+      const { startDate, endDate, workerId } = req.query;
+    
+      console.log("startDate: " + startDate);
+      console.log("endDate: " + endDate);
+      console.log("workerId: " + workerId)
+      
+      try {
+        const result = await ServicesService.getServiceByDate(
+          "" + startDate,
+          "" + endDate,
+          workerId !== undefined ? Number(workerId) : null
+        );
+        res.send(result);
+      } catch (error) {
+        res.send(error);
+      }
+    });
+    
 
 
 

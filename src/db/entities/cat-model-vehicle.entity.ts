@@ -17,5 +17,9 @@ export class CatModelVehicleEntity extends BaseEntity{
   @Column({ name : 'SLUG', type: 'varchar' })
   slug: string;
 
+  static getAllModels() {
+    return this.createQueryBuilder('brands')
+      .getMany();
+  }
 
 }

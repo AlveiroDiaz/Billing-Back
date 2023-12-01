@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryColumn, } from 'typeorm';
 
-@Entity({ name: 'CAT_BRAND_VEHICLE', schema: 'dbexcalibur.dbo' })
+@Entity({ name: 'CAT_BRAND_VEHICLE' })
 export class CatBrandVehicleEntity extends BaseEntity{
 
   @PrimaryColumn({
@@ -13,6 +13,12 @@ export class CatBrandVehicleEntity extends BaseEntity{
 
   @Column({ name : 'SLUG', type: 'varchar' })
   slug: string;
+
+  static getAllBrands() {
+    return this.createQueryBuilder('brands')
+      .getMany();
+  }
+  
 
 
 }
