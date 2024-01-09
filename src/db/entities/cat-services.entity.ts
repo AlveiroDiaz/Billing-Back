@@ -18,11 +18,15 @@ export class CatServicesEntity extends BaseEntity{
   @Column({ name : 'PRICE', type: 'varchar' })
   price: string;
 
+  @Column({ name : 'TYPE_VEHICLE'})
+  typeVehicle: number;
+
   @OneToMany(type => ServiceEntity, service => service.service)
   service : ServiceEntity;
 
-  static getCatServices(){
+  static getCatServices(typeVehicle){
     return this.createQueryBuilder('catService')
+        .where('catService.typeVehicle = :typeVehicle', { typeVehicle })
         .getMany();
   }
 

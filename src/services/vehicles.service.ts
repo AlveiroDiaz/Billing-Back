@@ -20,7 +20,7 @@ export class VehiclesService {
         }
     }
 
-    static async createVehicle(placa : string, marca : string, modelo : string, color : string, ownerId : number){
+    static async createVehicle(placa : string, marca : string, modelo : string, color : string, ownerId : number, typeVehicle:number){
         console.log("Starting method createVehicle")
         await getConnectionSql();
         try {
@@ -31,6 +31,7 @@ export class VehiclesService {
             vehicle.brand = marca;
             vehicle.model = modelo;
             vehicle.owner = ownerId;
+            vehicle.typeVehicle = typeVehicle;
 
             const result = await  VehicleEntity.save(vehicle);   
             console.log("Ending method createVehicle")

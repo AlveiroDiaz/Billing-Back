@@ -7,11 +7,11 @@ import { obtenerDiasDeLaSemanaEntreFechas, obtenerClaveParaFecha } from "../util
 
 export class ServicesService {
 
-    static async getCatServices() {
+    static async getCatServices(typeVehicle) {
         console.log("Starting method getCatServices")
         await getConnectionSql();
         try {
-            const result = await CatServicesEntity.getCatServices();
+            const result = await CatServicesEntity.getCatServices(typeVehicle);
             console.log("Ending method getCatServices")
             return result
         } catch (error) {

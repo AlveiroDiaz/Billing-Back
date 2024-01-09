@@ -26,6 +26,9 @@ export class VehicleEntity extends BaseEntity{
   @Column({ name : 'MODELO', type: 'varchar' })
   model: string;
 
+  @Column({ name : 'TYPE_VEHICLE' })
+  typeVehicle: number;
+
   @OneToMany(type => ServiceEntity, service => service.vehicle)
   service : ServiceEntity;
 

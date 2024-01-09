@@ -4,9 +4,10 @@ const debug = require("debug")("backend:routes:auth");
 
 const router = Router(); 
 
-router.get('/catServices', async (req, res) => {
+router.get('/catServices/:typeVehicle', async (req, res) => {
   try{
-    const result = await ServicesService.getCatServices();
+    const { typeVehicle } = req.params; // Obtén el valor de typeVehicle de los parámetros de la URL
+    const result = await ServicesService.getCatServices(+typeVehicle);
     res.send(result);
   }catch (error) {
     res.send(error.message);

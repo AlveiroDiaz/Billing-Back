@@ -18,8 +18,8 @@ router.get('/placa', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try{
-    const { placa, marca, modelo, color, ownerId } = req.body;
-    const result = await VehiclesService.createVehicle(placa, marca, modelo, color, ownerId);
+    const { placa, marca, modelo, color, ownerId, typeVehicle } = req.body;
+    const result = await VehiclesService.createVehicle(placa, marca, modelo, color, ownerId, typeVehicle);
     if(result) res.json({ status: 'Vehículo agregado' });
   }catch (error) {
     res.send(error.message);
