@@ -5,6 +5,7 @@ import { CatModelVehicleEntity } from "./entities/cat-model-vehicle.entity";
 import { CatServicesEntity } from "./entities/cat-services.entity";
 import { ServiceEntity } from "./entities/service.entity";
 import { VehicleEntity } from "./entities/vehicle.entity";
+import { RolesEntity } from "./entities/role.entity";
 
 let AppConnection: Connection;
 
@@ -13,17 +14,18 @@ export async function getConnectionSql() {
     try {
       AppConnection = await createConnection({
         type: "mysql",
-        host: "db-lavadero.cam8il4sbzqz.us-east-1.rds.amazonaws.com",
+        host: "localhost",
         port: 3306,
-        username: "admin",
-        password: "Ad1010244059*",
-        database: "db_lavadero",
+        username: "root",
+        password: "1205",
+        database: "dbexcalibur",
         entities: [UserEntity,
                   CatBrandVehicleEntity,
                   CatModelVehicleEntity,
                   CatServicesEntity,
                   ServiceEntity,
-                  VehicleEntity],
+                  VehicleEntity,
+                  RolesEntity],
         synchronize: false,
       });
       console.log("Conexión a MySQL establecida correctamente");

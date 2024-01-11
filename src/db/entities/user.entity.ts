@@ -1,6 +1,7 @@
-import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn, } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn, } from 'typeorm';
 import { ServiceEntity } from './service.entity';
 import { VehicleEntity } from './vehicle.entity';
+import { RolesEntity } from './role.entity';
 
 @Entity({ name: 'USERS', schema: 'dbexcalibur.dbo' })
 export class UserEntity extends BaseEntity{
@@ -22,8 +23,9 @@ export class UserEntity extends BaseEntity{
   @Column({ name : 'PHONE', type: 'varchar' })
   phone: number;
 
-  @Column({ name : 'ROLE', type: 'varchar' })
-  role: string;
+  @OneToOne(type => RolesEntity, role => role.userRole)
+  @JoinColumn({ name : 'ROLE'})
+  role: RolesEntity;
 
   @OneToMany(type => ServiceEntity, service => service.worker)
   worker : ServiceEntity;
@@ -39,7 +41,8 @@ export class UserEntity extends BaseEntity{
 
 static getUsersByRole(role: string) {
   return this.createQueryBuilder('users')
-    .where('users.role = :role', { role })
+     .leftJoin('users.role', 'role')
+    .where('role.name = :role', { role })
     .getMany();
 }
 

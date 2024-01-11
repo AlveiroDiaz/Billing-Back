@@ -1,9 +1,10 @@
+import { RolesEntity } from "../db/entities/role.entity";
 import { getConnectionSql } from "../db/connection"
 import { UserEntity } from "../db/entities/user.entity";
 
 export class UsersService {
 
-    static async createUser( name : string, surName : string,phone: number, role: string, email ?: string){
+    static async createUser( name : string, surName : string,phone: number, role: number, email ?: string){
         console.log("Starting method createUser")
         await getConnectionSql();
         try {
@@ -12,7 +13,7 @@ export class UsersService {
             user.name  = name;
             user.surName = surName;
             user.phone = phone;
-            user.role = role;
+            user.role = new RolesEntity();
             user.email = email;
 
             const result = await UserEntity.save(user);
@@ -51,8 +52,10 @@ export class UsersService {
         console.log("Starting method getUsersByRoleHint")
         const connection = await getConnectionSql();
         try {
+            console.log("CALL SpGetUserVehicles(?,?,?)",[role,page,pageSize]);
+            
             const result = await connection.query("CALL SpGetUserVehicles(?,?,?)",[role,page,pageSize]);
-            console.log("Ending method getUsersByRoleHint")
+            console.log("Ending method getUsersByRoleHint", result)
             return result[0];
         } catch (error) {
             console.log(">>>>>>", error);

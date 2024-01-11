@@ -2,7 +2,7 @@ import { BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColu
 import { ServiceEntity } from './service.entity';
 import { UserEntity } from './user.entity';
 
-@Entity({ name: 'VEHICLE', schema: 'dbexcalibur.dbo' })
+@Entity({ name: 'VEHICLES', schema: 'dbexcalibur.dbo' })
 export class VehicleEntity extends BaseEntity{
 
   @PrimaryColumn({
@@ -23,7 +23,7 @@ export class VehicleEntity extends BaseEntity{
   @Column({ name : 'COLOR', type: 'varchar' })
   color: string;
 
-  @Column({ name : 'MODELO', type: 'varchar' })
+  @Column({ name : 'MODEL', type: 'varchar' })
   model: string;
 
   @Column({ name : 'TYPE_VEHICLE' })
