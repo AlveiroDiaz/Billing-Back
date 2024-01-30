@@ -20,11 +20,11 @@ export class ServicesService {
         }
     }
 
-    static async getServices() {
+    static async getServices(status:string, page:number, pageSize:number ) {
         console.log("Starting method getServices")
         const connection = await getConnectionSql();
         try {
-            const result = await connection.query("CALL SpGetActiveServices");
+            const result = await connection.query("CALL SpGetActiveServices(?,?,?)",[status,page,pageSize]);
             console.log("Ending method getServices",result)
             return result[0];
         } catch (error) {
@@ -47,6 +47,8 @@ export class ServicesService {
             service.status = status;
             service.vehicle = vehicleId;
 
+            console.log(">>>>>>>>", service);
+            
             await getConnectionSql();
             const result = await ServiceEntity.save(service);
             console.log("Ending method createService")
@@ -59,13 +61,16 @@ export class ServicesService {
     }
 
     static async modificateStatusService(serviceid: number, status: string) {
-        console.log("Starting method createService");
+        console.log("Starting method modificateStatusService");
         try {
             await getConnectionSql();
+            
             const service = await ServiceEntity.getServiceById(serviceid);
+            if(!service)  console.error('No se pudo encontrar el servicio');
+            
             service.status = status;
             const result = await ServiceEntity.save(service);
-            console.log("Ending method createService")
+            console.log("Ending method modificateStatusService")
             return result
         } catch (error) {
             console.log(">>>>>>", error);
@@ -77,11 +82,14 @@ export class ServicesService {
         const connection = await getConnectionSql();
     
         console.log(">>>>>>", startDate, "fsdfsdf", endDate);
+
+        console.log("CALL SpGetTotalServicesByCreationDate(?,?,?)",[startDate,endDate,workerId]);
+        
         
 
         const result = await connection.query("CALL SpGetTotalServicesByCreationDate(?,?,?)",[startDate,endDate,workerId]);
 
-        console.log("<<<<<", result);
+        console.log("Resultado", result);
         
         const objetoConFechas = await obtenerDiasDeLaSemanaEntreFechas(startDate, endDate);
 

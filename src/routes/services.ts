@@ -16,18 +16,29 @@ router.get('/catServices/:typeVehicle', async (req, res) => {
 });
 
 router.get('/service', async (req, res) => {
-  try{
-    const result = await ServicesService.getServices();
-    res.send(result);
-  }catch (error) {
-    res.send(error.message);
-  }
+  try {
+    
+    console.log(">>> page",req.query.pag);
+    
+    const page = parseInt(req.query.page as string, 10) || 1; 
+    const status = req.query.status as string; 
 
+    console.log(">>>>>>",page , status);
+
+    const pageSize = 9; 
+    
+    const result = await ServicesService.getServices(status,page,pageSize);
+
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
 });
 
 router.post('/service', async (req, res) => {
   const { userId, service, status, vehicleId } = req.body;
   try{
+    
     const result = await ServicesService.createService(userId, service, status, vehicleId);
 
     if(result){
@@ -46,6 +57,7 @@ router.post('/service', async (req, res) => {
     const { serviceid } = req.params;
     const { status } = req.body;
     try{
+      
       const result = await ServicesService.modificateStatusService(+serviceid,status);
       if(result){
         res.json({ status: 'Servicio actualizado' });

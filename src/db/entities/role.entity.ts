@@ -17,6 +17,12 @@ export class RolesEntity extends BaseEntity{
   @OneToMany(type => UserEntity, user => user.role)
   userRole : UserEntity;
 
+  static getRoleById(roleId : number ){
+    return this.createQueryBuilder('role')
+        .where('role.id = :roleId', {roleId})
+        .getOne();
+  }
+
 
 
 }

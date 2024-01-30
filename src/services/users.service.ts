@@ -8,12 +8,15 @@ export class UsersService {
         console.log("Starting method createUser")
         await getConnectionSql();
         try {
-            
+            console.log(">>>>>>>> role ", role);
+            const roleFind = await RolesEntity.getRoleById(+role);
+            console.log(">>>>>>>> role ", roleFind);
+
             const user : UserEntity = new UserEntity();
             user.name  = name;
             user.surName = surName;
             user.phone = phone;
-            user.role = new RolesEntity();
+            user.role = roleFind;
             user.email = email;
 
             const result = await UserEntity.save(user);

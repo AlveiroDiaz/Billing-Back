@@ -52,7 +52,56 @@ CREATE TABLE CAT_BRAND_VEHICLE (
 	CONSTRAINT CAT_BRAND_VEHICLE_pk PRIMARY KEY (ID)
 );
 
+CREATE TABLE CAT_TYPE_VEHICLE (
+	ID BIGINT auto_increment NOT NULL,
+	NAME varchar(100) NULL,
+	CONSTRAINT CAT_TYPE_VEHICLE_pk PRIMARY KEY (ID)
+);
+
+CREATE PROCEDURE SpGetActiveServices()
+begin
+	select 
+		u.NAME as NAME_WORKER, 
+		v.PLACA as PLACA,
+		v.BRAND as BRAND,
+		uo.NAME as NAME_OWNER,
+		uo.SURNAME as SURNAME_OWNER,
+		uo.PHONE as PHONE_OWNER,
+		cs.NAME as NAME_SERVICE,
+		cs.PRICE as PRICE_SERVICE
+	from services s
+	left join vehicles v on s.VEHICLE = v.ID
+	left join users u on s.WORKER_ID = u.ID
+	left join users uo on v.OWNER_ID = uo.ID
+	left join cat_services cs on s.SERVICE = cs.ID
+	where status = "ACTIVE";
+END;
+
+CREATE PROCEDURE SpGetActiveServices()
+begin
+	select 
+		s.ID as ID,
+		u.NAME as NAME_WORKER, 
+		v.PLACA as PLACA,
+		v.BRAND as BRAND,
+		uo.NAME as NAME_OWNER,
+		uo.SURNAME as SURNAME_OWNER,
+		uo.PHONE as PHONE_OWNER,
+		cs.NAME as NAME_SERVICE,
+		cs.PRICE as PRICE_SERVICE
+	from services s
+	left join vehicles v on s.VEHICLE = v.ID
+	left join users u on s.WORKER_ID = u.ID
+	left join users uo on v.OWNER_ID = uo.ID
+	left join cat_services cs on s.SERVICE = cs.ID
+	where status = "ACTIVE";
+END
+
 
 ALTER TABLE services ADD CONSTRAINT services_vehicles_FK FOREIGN KEY (VEHICLE) REFERENCES vehicles(ID);
 ALTER TABLE services ADD CONSTRAINT services_users_FK FOREIGN KEY (WORKER_ID) REFERENCES users(ID);
 ALTER TABLE services ADD CONSTRAINT services_cat_services_FK FOREIGN KEY (SERVICE) REFERENCES cat_services(ID);
+
+ALTER TABLE users ADD CONSTRAINT users_roles_FK FOREIGN KEY (`ROLE`) REFERENCES roles(ID);
+
+ALTER TABLE vehicles ADD CONSTRAINT vehicles_cat_type_vehicle_FK FOREIGN KEY (TYPE_VEHICLE) REFERENCES cat_type_vehicle(ID);
