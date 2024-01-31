@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { ServiceEntity } from './service.entity';
 import { VehicleEntity } from './vehicle.entity';
 import { RolesEntity } from './role.entity';
@@ -6,7 +6,7 @@ import { RolesEntity } from './role.entity';
 @Entity({ name: 'USERS', schema: 'dbexcalibur.dbo' })
 export class UserEntity extends BaseEntity{
 
-  @PrimaryColumn({
+  @PrimaryGeneratedColumn({
     name: 'ID'
   })
   id: number;
@@ -45,6 +45,8 @@ static getUsersByRole(role: string) {
     .where('role.name = :role', { role })
     .getMany();
 }
+
+
 
 
 

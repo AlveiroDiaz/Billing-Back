@@ -28,10 +28,12 @@ router.get('/roles', async (req, res) => {
 router.get('/roles/hint', async (req, res) => {
   try{
     const { role, page } = req.query;
-    const itemsPerPage = 11;
-    const offset = (+page - 1) * itemsPerPage;
+    const itemsPerPage = 14;
+    const offset = (+page - 1);
+    console.log(">>>>> pagina",offset);
+    
     const result = await UsersService.getUsersByRoleHint(""+role,+itemsPerPage,offset);
-    console.log(">>>>>>>",result);
+   
     
     res.send(result);
   }catch (error) {

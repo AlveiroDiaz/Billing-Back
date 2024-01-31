@@ -20,6 +20,8 @@ export class UsersService {
             user.email = email;
 
             const result = await UserEntity.save(user);
+            console.log(">>>>>> estamos agregando", result);
+            
             console.log("Ending method createUser")
             return result;
         } catch (error) {
@@ -58,7 +60,7 @@ export class UsersService {
             console.log("CALL SpGetUserVehicles(?,?,?)",[role,page,pageSize]);
             
             const result = await connection.query("CALL SpGetUserVehicles(?,?,?)",[role,page,pageSize]);
-            console.log("Ending method getUsersByRoleHint", result)
+            console.log("Ending method getUsersByRoleHint")
             return result[0];
         } catch (error) {
             console.log(">>>>>>", error);
