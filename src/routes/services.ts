@@ -17,15 +17,13 @@ router.get('/catServices/:typeVehicle', async (req, res) => {
 
 router.get('/service', async (req, res) => {
   try {
-    
-    console.log(">>> page",req.query.pag);
-    
+        
     const page = parseInt(req.query.page as string, 10) || 1; 
     const status = req.query.status as string; 
 
     console.log(">>>>>>",page , status);
 
-    const pageSize = 9; 
+    const pageSize = 10; 
     
     const result = await ServicesService.getServices(status,page,pageSize);
 
