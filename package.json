@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./src/app.ts",
     "dev": "nodemon ./src/app.ts"
   },
   "author": "Juan Andres Duran Acosta",
