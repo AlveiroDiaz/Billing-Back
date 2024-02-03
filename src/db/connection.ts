@@ -14,11 +14,11 @@ export async function getConnectionSql() {
     try {
       AppConnection = await createConnection({
         type: "mysql",
-        host: "localhost",
+        host: "excalibur-1.c5aqom8mcn2u.us-east-2.rds.amazonaws.com",
         port: 3306,
-        username: "root",
-        password: "1205",
-        database: "dbexcalibur",
+        username: "admin",
+        password: "admin123",
+        database: "excalibur",
         entities: [UserEntity,
                   CatBrandVehicleEntity,
                   CatModelVehicleEntity,
