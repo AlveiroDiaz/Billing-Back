@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryColumn, } from 'typeorm';
 
-@Entity({ name: 'CAT_MODEL_VEHICLE', schema: 'dbexcalibur.dbo' })
+@Entity({ name: 'cat_model_vehicle' })
 export class CatModelVehicleEntity extends BaseEntity{
 
   @PrimaryColumn({

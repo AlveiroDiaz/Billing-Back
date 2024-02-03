@@ -3,7 +3,7 @@ import { ServiceEntity } from './service.entity';
 import { VehicleEntity } from './vehicle.entity';
 import { UserEntity } from './user.entity';
 
-@Entity({ name: 'ROLES' })
+@Entity({ name: 'roles' })
 export class RolesEntity extends BaseEntity{
 
   @PrimaryColumn({

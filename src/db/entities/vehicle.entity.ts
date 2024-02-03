@@ -2,7 +2,7 @@ import { BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColu
 import { ServiceEntity } from './service.entity';
 import { UserEntity } from './user.entity';
 
-@Entity({ name: 'VEHICLES', schema: 'dbexcalibur.dbo' })
+@Entity({ name: 'vehicles' })
 export class VehicleEntity extends BaseEntity{
 
   @PrimaryColumn({

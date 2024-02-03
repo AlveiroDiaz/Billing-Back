@@ -3,7 +3,7 @@ import { CatServicesEntity } from './cat-services.entity';
 import { UserEntity } from './user.entity';
 import { VehicleEntity } from './vehicle.entity';
 
-@Entity({ name: 'SERVICES', schema: 'dbexcalibur.dbo' })
+@Entity({ name: 'services' })
 export class ServiceEntity extends BaseEntity{
 
   @PrimaryColumn({
