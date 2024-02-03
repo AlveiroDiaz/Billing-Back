@@ -1,7 +1,6 @@
 # Usa una imagen de Node.js LTS como base
-FROM alpine:3.19
+FROM node:10-alpine
 
-ENV NODE_VERSION 20.11.0
 
 # Establece el directorio de trabajo en /usr/src/app
 WORKDIR /usr/src/app
