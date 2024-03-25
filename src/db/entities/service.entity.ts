@@ -19,7 +19,7 @@ export class ServiceEntity extends BaseEntity{
   @JoinColumn({ name: 'SERVICE' })
   service: number;
 
-  @Column({ name : 'CREATION_DATE', type: 'date' })
+  @Column({ name: 'CREATION_DATE', type: 'datetime' })
   creationDate: Date;
 
   @Column({ name : 'STATUS', type: 'varchar' })

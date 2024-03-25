@@ -40,8 +40,11 @@ export class ServicesService {
 
             const service: ServiceEntity = new ServiceEntity;
             service.worker = userId;
+        
             const currentDate = new Date();
-            //currentDate.setHours(currentDate.getHours() - currentDate.getTimezoneOffset() / 60);
+            const timeZoneOffset = -5 * 60; // Offset de -5 horas para Colombia
+            currentDate.setMinutes(currentDate.getMinutes() + timeZoneOffset);
+            
             service.creationDate = currentDate;
             service.service = serviceId;
             service.status = status;
