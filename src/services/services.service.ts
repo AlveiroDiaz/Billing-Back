@@ -41,7 +41,7 @@ export class ServicesService {
             const service: ServiceEntity = new ServiceEntity;
             service.worker = userId;
             const currentDate = new Date();
-            currentDate.setHours(currentDate.getHours() - currentDate.getTimezoneOffset() / 60);
+            //currentDate.setHours(currentDate.getHours() - currentDate.getTimezoneOffset() / 60);
             service.creationDate = currentDate;
             service.service = serviceId;
             service.status = status;
