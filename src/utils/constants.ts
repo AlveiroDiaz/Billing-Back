@@ -1,5 +1,5 @@
-interface filterData {
+export interface FilterData {
     name: string;
-    placa: string;
     phone: string;
+    placa: string;
 }

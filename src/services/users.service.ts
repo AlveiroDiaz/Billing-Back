@@ -1,5 +1,6 @@
 import { RolesEntity } from "../db/entities/role.entity";
-import { getConnectionSql } from "../db/connection"
+import { getConnectionSql } from "../db/connection";
+import { FilterData } from "../utils/constants";
 import { UserEntity } from "../db/entities/user.entity";
 
 export class UsersService {
@@ -69,7 +70,7 @@ export class UsersService {
         
     }
 
-    static async getUsersByFilters(role : string, page : number,pageSize: number, filters: filterData){
+    static async getUsersByFilters(role : string, page : number,pageSize: number, filters: FilterData){
         console.log("Starting method getUsersByRoleHint")
         const connection = await getConnectionSql();
         try {

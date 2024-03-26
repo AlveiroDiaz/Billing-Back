@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { UsersService } from "../services/users.service";
+import { FilterData } from "../utils/constants";
 import { autenticationMiddleware } from "../middleware/AuthenticationMiddleware";
 const debug = require("debug")("backend:routes:auth");
 
@@ -48,10 +49,22 @@ router.get('/roles/filters', async (req, res) => {
     const offset = (+page - 1);
     console.log(">>>>> pagina",offset);
 
-    let filterData: filterData ; 
-    filterData.name = String(name);
-    filterData.phone = String(phone);
-    filterData.placa = String(placa);
+    let filterData: FilterData = {
+      name: "",
+      phone: "",
+      placa: ""
+  };
+  
+  // Luego asignar valores solo si están presentes en req.query
+  if (name !== undefined) {
+      filterData.name = String(name);
+  }
+  if (phone !== undefined) {
+      filterData.phone = String(phone);
+  }
+  if (placa !== undefined) {
+      filterData.placa = String(placa);
+  }
   
     
     const result = await UsersService.getUsersByFilters(""+role,+itemsPerPage,offset,filterData);
