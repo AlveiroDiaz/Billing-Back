@@ -41,6 +41,28 @@ router.get('/roles/hint', async (req, res) => {
   }
 });
 
+router.get('/roles/filters', async (req, res) => {
+  try{
+    const { role, page, name, placa, phone } = req.query;
+    const itemsPerPage = 14;
+    const offset = (+page - 1);
+    console.log(">>>>> pagina",offset);
+
+    let filterData: filterData ; 
+    filterData.name = String(name);
+    filterData.phone = String(phone);
+    filterData.placa = String(placa);
+  
+    
+    const result = await UsersService.getUsersByFilters(""+role,+itemsPerPage,offset,filterData);
+   
+    
+    res.send(result);
+  }catch (error) {
+    res.send(error.message);
+  }
+});
+
 router.post('/', async (req, res) => {
   try{
     const { name, surname, phone, role, email } = req.body;
