@@ -71,12 +71,12 @@ export class UsersService {
     }
 
     static async getUsersByFilters(role : string, page : number,pageSize: number, filters: FilterData){
-        console.log("Starting method getUsersByRoleHint")
+        console.log("Starting method getUsersByFilters")
         const connection = await getConnectionSql();
         try {
-            console.log("CALL SpGetUserVehiclesByFilters(?,?,?)",[role,page,pageSize, filters.name, filters.placa, filters.phone]);
+            console.log("CALL SpGetUserVehiclesByFilters(?,?,?,?,?,?)",[role,page,pageSize, filters.name, filters.placa, filters.phone]);
             
-            const result = await connection.query("CALL SpGetUserVehicles(?,?,?)",[role,page,pageSize]);
+            const result = await connection.query("CALL SpGetUserVehiclesByFilters(?,?,?,?,?,?)",[role,page,pageSize, filters.name, filters.placa, filters.phone]);
             console.log("Ending method getUsersByRoleHint")
             return result[0];
         } catch (error) {
