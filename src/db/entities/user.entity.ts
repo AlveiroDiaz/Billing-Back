@@ -46,6 +46,12 @@ static getUsersByRole(role: string) {
     .getMany();
 }
 
+static getUsersByEmail(email: string) {
+  return this.createQueryBuilder('users')
+    .where('users.email = :email', { email })
+    .getOne();
+}
+
 
 
 

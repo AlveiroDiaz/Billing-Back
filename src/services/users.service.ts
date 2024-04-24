@@ -54,6 +54,20 @@ export class UsersService {
         
     }
 
+    static async getUsersByEmail(email : string){
+        console.log("Starting method getUsersByEmail")
+        await getConnectionSql();
+        try {
+            const result = await UserEntity.getUsersByEmail(email);   
+            console.log("Ending method getUsersByEmail")
+            return result
+        } catch (error) {
+            console.log(">>>>>>", error);
+            
+        }
+        
+    }
+
     static async getUsersByRoleHint(role : string, page : number,pageSize: number){
         console.log("Starting method getUsersByRoleHint")
         const connection = await getConnectionSql();

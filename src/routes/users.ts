@@ -26,6 +26,18 @@ router.get('/roles', async (req, res) => {
   }
 });
 
+router.get('/email', async (req, res) => {
+  try{
+    const { email } = req.query;
+    const result = await UsersService.getUsersByEmail(""+email);
+    console.log(">>>>>>", result);
+    
+    res.send(result);
+  }catch (error) {
+    res.send(error.message);
+  }
+});
+
 router.get('/roles/hint', async (req, res) => {
   try{
     const { role, page } = req.query;
