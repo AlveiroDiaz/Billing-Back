@@ -23,7 +23,7 @@ export class UserEntity extends BaseEntity{
   @Column({ name : 'PHONE', type: 'varchar' })
   phone: number;
 
-  @OneToOne(type => RolesEntity, role => role.userRole)
+  @ManyToOne(type => RolesEntity, role => role.userRole)
   @JoinColumn({ name : 'ROLE'})
   role: RolesEntity;
 
@@ -41,14 +41,14 @@ export class UserEntity extends BaseEntity{
 
 static getUsersByRole(role: string) {
   return this.createQueryBuilder('users')
-     .leftJoin('users.role', 'role')
+    .leftJoin('users.role', 'role')
     .where('role.name = :role', { role })
     .getMany();
 }
 
 static getUsersByEmail(email: string) {
   return this.createQueryBuilder('users')
-    .leftJoin('users.role', 'role')
+    .leftJoinAndSelect('users.role', 'role')
     .where('users.email = :email', { email })
     .getOne();
 }
