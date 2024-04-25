@@ -35,6 +35,15 @@ export class ServiceEntity extends BaseEntity{
         .getOne();
   }
 
+  static getServicesByUserAndStatus(userId, status){
+    return this.createQueryBuilder('service')
+        .leftJoinAndSelect('service.vehicle', 'vehicle')
+        .leftJoinAndSelect('service.service', 'catService')
+        .leftJoin('vehicle.owner', 'ownerVehicle')
+        .where('ownerVehicle.id = :userId', { userId })
+        .getMany();
+  }
+
   
 
 }

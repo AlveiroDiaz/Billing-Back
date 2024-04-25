@@ -123,5 +123,20 @@ export class ServicesService {
     }
 
 
+    static async getServicesByUserAndStatus(userId, status){
+        console.log("Starting method getServicesByUserAndStatus")
+        
+        await getConnectionSql();
+        try {
+            const result = await ServiceEntity.getServicesByUserAndStatus(userId,status);
+            console.log("Ending method getCatServices")
+            return result
+        } catch (error) {
+            console.log(">>>>>>", error);
+
+        }
+    }
+
+
 
 }

@@ -68,6 +68,27 @@ router.post('/service', async (req, res) => {
     }
     });
 
+    router.get('/user/:userId/status/:status', async (req, res) => {
+      const { userId,  status} = req.params;
+      
+    
+      console.log("userId: " + userId);
+      console.log("status: " + status);
+      
+      try {
+        const result = await ServicesService.getServicesByUserAndStatus(
+          "" + userId,
+          "" + status
+        );
+
+          console.log(">>>> respuesta" , result);
+          
+        res.send(result);
+      } catch (error) {
+        res.send(error);
+      }
+    });
+
     router.get('/date', async (req, res) => {
       const { startDate, endDate, workerId } = req.query;
     
