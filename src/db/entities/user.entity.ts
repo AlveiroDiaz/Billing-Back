@@ -48,6 +48,7 @@ static getUsersByRole(role: string) {
 
 static getUsersByEmail(email: string) {
   return this.createQueryBuilder('users')
+    .leftJoin('users.role', 'role')
     .where('users.email = :email', { email })
     .getOne();
 }
