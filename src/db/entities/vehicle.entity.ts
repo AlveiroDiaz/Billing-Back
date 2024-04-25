@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColumn, } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn, } from 'typeorm';
 import { ServiceEntity } from './service.entity';
 import { UserEntity } from './user.entity';
 
@@ -13,8 +13,8 @@ export class VehicleEntity extends BaseEntity{
   @Column({ name : 'PLACA', type: 'varchar' })
   placa: string;
 
-  
-  @Column({ name : 'OWNER_ID', type: 'bigint' })
+  @ManyToOne(type => UserEntity, role => role.ownerVehicle)
+  @JoinColumn({ name : 'OWNER_ID'})
   owner: number;
 
   @Column({ name : 'BRAND', type: 'varchar' })

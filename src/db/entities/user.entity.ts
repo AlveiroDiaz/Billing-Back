@@ -30,7 +30,7 @@ export class UserEntity extends BaseEntity{
   @OneToMany(type => ServiceEntity, service => service.worker)
   worker : ServiceEntity;
 
-  @ManyToMany(type => VehicleEntity, service => service.owner)
+  @OneToMany(type => VehicleEntity, service => service.owner)
   ownerVehicle : ServiceEntity;
 
   static getUsersByPhone(phone : string ){
@@ -49,6 +49,7 @@ static getUsersByRole(role: string) {
 static getUsersByEmail(email: string) {
   return this.createQueryBuilder('users')
     .leftJoinAndSelect('users.role', 'role')
+    .leftJoinAndSelect('users.ownerVehicle', 'vehicle')
     .where('users.email = :email', { email })
     .getOne();
 }
