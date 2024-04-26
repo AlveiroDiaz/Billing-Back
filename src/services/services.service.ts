@@ -129,8 +129,18 @@ export class ServicesService {
         await getConnectionSql();
         try {
             const result = await ServiceEntity.getServicesByUserAndStatus(userId,status);
+            let services = [];
+            let total = result.length
+            if(result.length > 0){
+
+                for (const service of result) {
+                    if(service.status  == status){
+                        services.push(service);
+                    }
+                }
+            }
             console.log("Ending method getCatServices")
-            return result
+            return {services, total}
         } catch (error) {
             console.log(">>>>>>", error);
 
