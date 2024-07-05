@@ -110,7 +110,7 @@ export class ServicesService {
             console.log("<<<<< clave", clave);
           
             if (objetoConFechas.hasOwnProperty(clave)) {
-              objetoConFechas[clave] += resultado.totalPrecio;
+              objetoConFechas[clave] += +resultado.totalPrecio;
             }
           } 
           
