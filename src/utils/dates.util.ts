@@ -1,18 +1,23 @@
+import moment from 'moment-timezone';
+
 export async function obtenerDiasDeLaSemanaEntreFechas(startDateStr, endDateStr) {
   const resultado = {};
 
-  let fechaActual = new Date(startDateStr);
-  fechaActual.setUTCHours(0, 0, 0, 0); // Configurar la hora en 00:00:00 en UTC
+  
+  let fechaActualtemp = new Date(startDateStr);
+  let endDatetemp = new Date(endDateStr);
+  let fechaActual = moment(fechaActualtemp).tz('America/Bogota');
+  let endDate = moment(endDatetemp).tz('America/Bogota');
 
   const diasDeLaSemana = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
 
-  while (fechaActual <= new Date(endDateStr)) {
-    const diaDeLaSemana = diasDeLaSemana[fechaActual.getUTCDay()];
-    const diaKey = `${diaDeLaSemana} ${fechaActual.getUTCDate() < 10 ? '0' : ''}${fechaActual.getUTCDate()}`;
+  while (fechaActual <= endDate) {
+    const diaDeLaSemana = diasDeLaSemana[fechaActual.day()]
+    const diaKey = `${diaDeLaSemana} ${fechaActual.date() < 10 ? '0' : ''}${fechaActual.date()}`;
     
-    resultado[diaKey] = 0; // Inicializar la suma de precios en 0
+    resultado[diaKey] = 0;
 
-    fechaActual.setUTCDate(fechaActual.getUTCDate() + 1);
+    fechaActual.date(fechaActual.date() + 1);
   }
 
   return resultado;
