@@ -28,9 +28,13 @@ export async function obtenerClaveParaFecha(fecha: string) {
   const diasSemana = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
   
   const fechaObj = moment(fecha).tz('America/Bogota');
+  console.log(">>>>>>>>>> fechaObj",fechaObj);
+  
   
   const diaSemana = fechaObj.day();
+  console.log(">>>>>>>>>> diaSemana",diaSemana);
   const dia = fechaObj.date();
+  console.log(">>>>>>>>>> dia",dia);
   
   return `${diasSemana[diaSemana]} ${dia < 10 ? '0' : ''}${dia}`;
 }
