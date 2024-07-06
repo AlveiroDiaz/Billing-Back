@@ -24,12 +24,12 @@ export async function obtenerClaveParaFecha(fecha: string) {
   if (!isValidDate) {
     throw new Error('Formato de fecha inválido');
   }
-
+  console.log(">>>>>>>>>> fecha que llego ", fecha); 
+  
   const diasSemana = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
   
-  const fechaObj = moment(fecha).tz('America/Bogota');
-  console.log(">>>>>>>>>> fechaObj",fechaObj);
-  
+  const fechaObj = moment.tz(fecha, 'YYYY-MM-DD', 'America/Bogota');
+  console.log(">>>>>>>>>> fechaObj", fechaObj.format()); // Asegúrate de que esto muestra la fecha en la zona horaria correcta
   
   const diaSemana = fechaObj.day();
   console.log(">>>>>>>>>> diaSemana",diaSemana);
