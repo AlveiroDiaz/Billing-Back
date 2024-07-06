@@ -84,18 +84,18 @@ export class ServicesService {
 
         const connection = await getConnectionSql();
     
-        startDate += " 23:59:59";
-        endDate +=  " 00:00:00";
+        endDate += " 23:59:59";
+        startDate +=  " 00:00:00";
 
-        console.log("CALL SpGetTotalServicesByCreationDate(?,?,?)",[endDate, startDate,workerId]);
+        console.log("CALL SpGetTotalServicesByCreationDate(?,?,?)",[startDate,endDate ,workerId]);
         
         
 
-        const result = await connection.query("CALL SpGetTotalServicesByCreationDate(?,?,?)",[endDate,startDate,workerId]);
+        const result = await connection.query("CALL SpGetTotalServicesByCreationDate(?,?,?)",[startDate,endDate,workerId]);
 
         console.log("Resultado", result);
         
-        const objetoConFechas = await obtenerDiasDeLaSemanaEntreFechas(endDate, startDate );
+        const objetoConFechas = await obtenerDiasDeLaSemanaEntreFechas(startDate,endDate  );
 
         console.log(">>>>> objeto",objetoConFechas);
         
