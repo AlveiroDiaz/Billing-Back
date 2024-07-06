@@ -2,6 +2,7 @@ import { CatServicesEntity } from "../db/entities/cat-services.entity";
 import { getConnectionSql } from "../db/connection";
 import { ServiceEntity } from "../db/entities/service.entity";
 import { obtenerDiasDeLaSemanaEntreFechas, obtenerClaveParaFecha } from "../utils/dates.util"
+import moment from "moment-timezone";
 
 
 
@@ -80,44 +81,42 @@ export class ServicesService {
         }
     }
 
-    static async getServiceByDate(startDate: String, endDate :String, workerId: number){
+    static async getServiceByDate(startDate: string, endDate: string, workerId: number) {
 
         const connection = await getConnectionSql();
-        
-        startDate +=  " 01:00:00";
-        endDate += " 23:59:59";
-
-        console.log("CALL SpGetTotalServicesByCreationDate(?,?,?)",[startDate,endDate ,workerId]);
-
-        const result = await connection.query("CALL SpGetTotalServicesByCreationDate(?,?,?)",[startDate,endDate,workerId]);
-
+    
+        startDate = moment(startDate).tz('America/Bogota').format('YYYY-MM-DD') + " 01:00:00";
+        endDate = moment(endDate).tz('America/Bogota').format('YYYY-MM-DD') + " 23:59:59";
+    
+        console.log("CALL SpGetTotalServicesByCreationDate(?,?,?)", [startDate, endDate, workerId]);
+    
+        const result = await connection.query("CALL SpGetTotalServicesByCreationDate(?,?,?)", [startDate, endDate, workerId]);
+    
         console.log("Resultado", result);
-        
-        const objetoConFechas = await obtenerDiasDeLaSemanaEntreFechas(startDate,endDate  );
-
-        console.log(">>>>> objeto",objetoConFechas);
-        
+    
+        const objetoConFechas = await obtenerDiasDeLaSemanaEntreFechas(startDate, endDate);
+    
+        console.log(">>>>> objeto", objetoConFechas);
+    
         try {
-  
           for (const resultado of result[0]) {
-            
-            const fecha = resultado.CREATION_DATE.toISOString().substr(0, 10);
+            const fecha = moment(resultado.CREATION_DATE).tz('America/Bogota').format('YYYY-MM-DD');
             console.log(">>>>> fecha por aqui", fecha);
             const clave = await obtenerClaveParaFecha(fecha);
-          
+    
             if (objetoConFechas.hasOwnProperty(clave)) {
               objetoConFechas[clave] += +resultado.totalPrecio;
             }
-          } 
-          
+          }
+    
           console.log(">>>>>>>>>", objetoConFechas);
           return objetoConFechas;
         } catch (error) {
           console.error('Error al obtener catálogo de servicios:', error);
-          //res.status(500).json({ error: 'Error interno del servidor' });
+          // res.status(500).json({ error: 'Error interno del servidor' });
         }
-    }
-
+      }
+    
 
     static async getServicesByUserAndStatus(userId, status){
         console.log("Starting method getServicesByUserAndStatus")
