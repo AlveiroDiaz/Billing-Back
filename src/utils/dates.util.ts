@@ -19,10 +19,18 @@ export async function obtenerDiasDeLaSemanaEntreFechas(startDateStr: string, end
 }
 
 export async function obtenerClaveParaFecha(fecha: string) {
+  
+  const isValidDate = moment(fecha, 'YYYY-MM-DD', true).isValid();
+  if (!isValidDate) {
+    throw new Error('Formato de fecha inválido');
+  }
+
   const diasSemana = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+  
   const fechaObj = moment(fecha).tz('America/Bogota');
+  
   const diaSemana = fechaObj.day();
   const dia = fechaObj.date();
-
+  
   return `${diasSemana[diaSemana]} ${dia < 10 ? '0' : ''}${dia}`;
 }
