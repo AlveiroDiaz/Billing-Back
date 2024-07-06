@@ -11,9 +11,7 @@ export async function obtenerDiasDeLaSemanaEntreFechas(startDateStr: string, end
   while (fechaActual.isSameOrBefore(endDate, 'day')) {
     const diaDeLaSemana = diasDeLaSemana[fechaActual.day()];
     const diaKey = `${diaDeLaSemana} ${fechaActual.date() < 10 ? '0' : ''}${fechaActual.date()}`;
-    
     resultado[diaKey] = 0;
-
     fechaActual.add(1, 'day');
   }
 
