@@ -3,11 +3,8 @@ import moment from 'moment-timezone';
 export async function obtenerDiasDeLaSemanaEntreFechas(startDateStr, endDateStr) {
   const resultado = {};
 
-  
-  let fechaActualtemp = new Date(startDateStr);
-  let endDatetemp = new Date(endDateStr);
-  let fechaActual = moment(fechaActualtemp).tz('America/Bogota');
-  let endDate = moment(endDatetemp).tz('America/Bogota');
+  let fechaActual = moment(startDateStr).tz('America/Bogota');
+  let endDate = moment(endDateStr).tz('America/Bogota');
 
   const diasDeLaSemana = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
 
