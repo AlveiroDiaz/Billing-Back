@@ -83,13 +83,11 @@ export class ServicesService {
     static async getServiceByDate(startDate: String, endDate :String, workerId: number){
 
         const connection = await getConnectionSql();
-    
+        
+        startDate +=  " 01:00:00";
         endDate += " 23:59:59";
-        startDate +=  " 00:00:00";
 
         console.log("CALL SpGetTotalServicesByCreationDate(?,?,?)",[startDate,endDate ,workerId]);
-        
-        
 
         const result = await connection.query("CALL SpGetTotalServicesByCreationDate(?,?,?)",[startDate,endDate,workerId]);
 
@@ -99,16 +97,13 @@ export class ServicesService {
 
         console.log(">>>>> objeto",objetoConFechas);
         
-      
         try {
   
           for (const resultado of result[0]) {
-            console.log(">>>>> rows", resultado);
+            
             const fecha = resultado.CREATION_DATE.toISOString().substr(0, 10);
-            console.log("<<<<< date", fecha);
-          
+            console.log(">>>>> fecha por aqui", fecha);
             const clave = await obtenerClaveParaFecha(fecha);
-            console.log("<<<<< clave", clave);
           
             if (objetoConFechas.hasOwnProperty(clave)) {
               objetoConFechas[clave] += +resultado.totalPrecio;
