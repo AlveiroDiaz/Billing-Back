@@ -17,7 +17,7 @@ export async function getConnectionSql() {
         host: "excalibur-1.c5aqom8mcn2u.us-east-2.rds.amazonaws.com",
         port: 3306,
         username: "admin",
-        password: "admin123",
+        password: "Q0='5wwCx:1)",
         database: "excalibur",
         entities: [UserEntity,
                   CatBrandVehicleEntity,

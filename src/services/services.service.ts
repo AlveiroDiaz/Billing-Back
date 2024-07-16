@@ -96,15 +96,12 @@ export class ServicesService {
         console.log("Resultado", result);
         
         const objetoConFechas = await obtenerDiasDeLaSemanaEntreFechas(startDate,endDate);
-
-        console.log(">>>>> objeto",objetoConFechas);
         
         try {
   
           for (const resultado of result[0]) {
             
-            const fecha = resultado.CREATION_DATE.toISOString().substr(0, 10);
-            console.log(">>>>> fecha por aqui", fecha);
+            const fecha = resultado.CREATION_DATE.toISOString().substr(0, 10);            
             const clave = await obtenerClaveParaFecha(fecha);
           
             if (objetoConFechas.hasOwnProperty(clave)) {
@@ -112,7 +109,6 @@ export class ServicesService {
             }
           } 
           
-          console.log(">>>>>>>>>", objetoConFechas);
           return objetoConFechas;
         } catch (error) {
           console.error('Error al obtener catálogo de servicios:', error);
