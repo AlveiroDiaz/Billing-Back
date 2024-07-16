@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryColumn, } from 'typeorm';
 
-@Entity({ name: 'cat_brand_vehicle' })
+@Entity({ name: 'CAT_BRAND_VEHICLE' })
 export class CatBrandVehicleEntity extends BaseEntity{
 
   @PrimaryColumn({

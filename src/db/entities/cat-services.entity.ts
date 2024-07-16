@@ -1,7 +1,7 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn, } from 'typeorm';
 import { ServiceEntity } from './service.entity';
 
-@Entity({ name: 'cat_services'})
+@Entity({ name: 'CAT_SERVICES'})
 export class CatServicesEntity extends BaseEntity{
 
   @PrimaryColumn({

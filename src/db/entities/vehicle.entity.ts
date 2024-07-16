@@ -2,7 +2,7 @@ import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne,
 import { ServiceEntity } from './service.entity';
 import { UserEntity } from './user.entity';
 
-@Entity({ name: 'vehicles' })
+@Entity({ name: 'VEHICLES' })
 export class VehicleEntity extends BaseEntity{
 
   @PrimaryColumn({
