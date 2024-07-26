@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { ServicesService } from "../services/services.service";
+import { SiigoService } from "../services/siigo.service";
 const debug = require("debug")("backend:routes:auth");
 
 const router = Router(); 
@@ -102,6 +103,16 @@ router.post('/service', async (req, res) => {
           "" + endDate,
           workerId !== undefined ? Number(workerId) : null
         );
+        res.send(result);
+      } catch (error) {
+        res.send(error);
+      }
+    });
+
+    router.post('/siigo', async (req, res) => {
+      
+      try {
+        const result = await SiigoService.getTokenSiigo();
         res.send(result);
       } catch (error) {
         res.send(error);
