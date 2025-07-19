@@ -28,6 +28,8 @@ router.get('/roles', async (req, res) => {
 
 router.get('/email', async (req, res) => {
   try{
+    console.log("Get by email");
+    
     const { email } = req.query;
     const result = await UsersService.getUsersByEmail(""+email);
     console.log(">>>>>>", result);

@@ -55,7 +55,7 @@ export class UsersService {
     }
 
     static async getUsersByEmail(email : string){
-        console.log("Starting method getUsersByEmail")
+        console.log("Starting method getUsersByEmail" + email)
         await getConnectionSql();
         try {
             const result = await UserEntity.getUsersByEmail(email);   

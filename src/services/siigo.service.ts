@@ -24,7 +24,6 @@ export class SiigoService {
             console.log("Ending method getTokenSiigo")
         } catch (error) {
             console.log(">>>>>>", error);
-
         }
     }
 
